@@ -38,4 +38,10 @@ describe Kittenizer do
       end
     end
   end
+
+  describe "String#DICTIONARY" do
+    it 'raises NameError' do
+      expect { String::DICTIONARY }.to raise_error(NameError)
+    end
+  end
 end
