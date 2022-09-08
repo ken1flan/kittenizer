@@ -1,2 +1,4 @@
-require "kittenizer/version"
-require "kittenizer/string"
+# frozen_string_literal: true
+
+require 'kittenizer/version'
+require 'kittenizer/string'
