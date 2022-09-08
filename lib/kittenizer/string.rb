@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/Documentation
 class String
   def kittenize
     result = dup
@@ -28,3 +29,4 @@ class String
 
   private_constant :DICTIONARY
 end
+# rubocop:enable Style/Documentation
