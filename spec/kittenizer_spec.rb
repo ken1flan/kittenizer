@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Kittenizer do
   it 'has a version number' do
-    expect(Kittenizer::VERSION).not_to be nil
+    expect(Kittenizer::VERSION).not_to be_nil
   end
 
   WORD_PAIRS = [
