@@ -14,35 +14,43 @@ WORD_PAIRS = [
 ].freeze
 
 describe Kittenizer do
-  it 'has a version number' do
-    expect(Kittenizer::VERSION).not_to be_nil
+  describe 'version' do
+    subject { Kittenizer::VERSION }
+
+    it { is_expected.not_to be_nil }
   end
 
   describe 'String#kittenize' do
+    subject { str.kittenize }
+
     WORD_PAIRS.each do |word_pair|
-      it "returns #{word_pair[1]}" do
-        expect(word_pair[0].kittenize).to eq word_pair[1]
+      context "when str = '#{word_pair[0]}'" do
+        let(:str) { word_pair[0].dup }
+
+        it { is_expected.to eq word_pair[1] }
       end
     end
   end
 
   describe 'String#kittenize!' do
-    WORD_PAIRS.each do |word_pair|
-      context "when str = '#{word_pair[0]}', then str.kittenize!" do
+    WORD_PAIRS.reject { |item| item[0] == item[1] }.each do |word_pair|
+      context "when str = '#{word_pair[0]}'" do
         let(:str) { word_pair[0].dup }
 
-        before { str.kittenize! }
+        it { expect { str.kittenize! }.to change { str }.from(word_pair[0]).to(word_pair[1]) }
+      end
+    end
 
-        it "changes #{word_pair[1]}" do
-          expect(str).to eq word_pair[1]
-        end
+    WORD_PAIRS.select { |item| item[0] == item[1] }.each do |word_pair|
+      context "when str = '#{word_pair[0]}'" do
+        let(:str) { word_pair[0].dup }
+
+        it { expect { str.kittenize! }.not_to(change { str }) }
       end
     end
   end
 
   describe 'String#DICTIONARY' do
-    it 'raises NameError' do
-      expect { String::DICTIONARY }.to raise_error(NameError)
-    end
+    it { expect { String::DICTIONARY }.to raise_error(NameError) }
   end
 end
